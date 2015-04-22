@@ -1,0 +1,33 @@
+{
+  "name": "angularpractice",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-watch": "^4.2.4"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "description": "angular practice",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/irbisCleric/practical-angular.git"
+  },
+  "keywords": [
+    "angular",
+    "practice"
+  ],
+  "author": "Sergii Kokhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irbisCleric/practical-angular/issues"
+  },
+  "homepage": "https://github.com/irbisCleric/practical-angular"
+}
