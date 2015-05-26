@@ -15,11 +15,26 @@ function readJsonFileSync(filepath, encoding){
     return JSON.parse(file);
 }
 
-jsonData = readJsonFileSync(__dirname + '/data/data_example.json', 'utf-8');
-
 app.get('/', function(req, res){
+    jsonData = readJsonFileSync(__dirname + '/data/data_example.json', 'utf-8');
+
     res.contentType('application/json');
     res.send(jsonData);
 });
+
+app.get('/api/list', function(req, res){
+    jsonData = readJsonFileSync(__dirname + '/data/list.json', 'utf-8');
+
+    res.contentType('application/json');
+    res.send(jsonData);
+});
+
+app.get('/api/item', function(req, res){
+    jsonData = readJsonFileSync(__dirname + '/data/item.json', 'utf-8');
+
+    res.contentType('application/json');
+    res.send(jsonData);
+});
+
 
 app.listen(1715);
