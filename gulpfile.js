@@ -6,8 +6,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
     rimraf = require('rimraf'),
-    watch = require('gulp-watch'),
-    livereload = require('gulp-livereload');
+    server = require('gulp-server-livereload');
 
 // Default Task
 gulp.task('default', ['assets']);
@@ -34,4 +33,13 @@ gulp.task('sass', function () {
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./app/build/styles'));
+});
+
+gulp.task('webserver', function() {
+    gulp.src('app')
+        .pipe(server({
+            livereload: true,
+            directoryListing: false,
+            open: true
+        }));
 });
