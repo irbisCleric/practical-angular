@@ -36,3 +36,9 @@ mainApp.controller('ListCtrl', ['$scope', '$http', function ($scope, $http) {
 mainApp.controller('ItemCtrl', ['$scope', '$http', function ($scope, $http) {
 
 }]);
+
+mainApp.controller('HeaderController', ['$scope', '$location', function ($scope, $location) {
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+    };
+}]);
