@@ -15,8 +15,15 @@ function readJsonFileSync(filepath, encoding){
     return JSON.parse(file);
 }
 
+// CORS on ExpressJS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get('/', function(req, res){
-    jsonData = readJsonFileSync(__dirname + '/data/data_example.json', 'utf-8');
+    jsonData = readJsonFileSync(__dirname + '/data/list.json', 'utf-8');
 
     res.contentType('application/json');
     res.send(jsonData);

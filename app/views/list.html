@@ -1,0 +1,22 @@
+<div class="list-block" ng-controller="ListCtrl as list">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Desc</th>
+            <th>Comments amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in listItems">
+            <td>
+                <a ng-href="" class="btn btn-primary">{{item.user_id}}</a>
+            </td>
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.comments_amount}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
