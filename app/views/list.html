@@ -1,4 +1,4 @@
-<div class="list-block" ng-controller="ListCtrl as list">
+<div class="list-block" ng-controller="UsersListCtrl">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -9,13 +9,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in listItems">
+        <tr ng-repeat="user in usersList">
             <td>
-                <a ng-href="" class="btn btn-primary">{{item.user_id}}</a>
+                <a ng-href="#/list/{{user.user_id}}" class="btn btn-primary">{{user.user_id}}</a>
             </td>
-            <td>{{item.name}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.comments_amount}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.description}}</td>
+            <td>{{user.comments_amount}}</td>
         </tr>
         </tbody>
     </table>

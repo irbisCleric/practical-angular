@@ -4,7 +4,8 @@
 var fs = require("fs"),
     express = require('express'),
     app = express(),
-    jsonData;
+    jsonData,
+    comments;
 
 function readJsonFileSync(filepath, encoding){
 
@@ -22,13 +23,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/', function(req, res){
-    jsonData = readJsonFileSync(__dirname + '/data/list.json', 'utf-8');
-
-    res.contentType('application/json');
-    res.send(jsonData);
-});
-
 app.get('/api/list', function(req, res){
     jsonData = readJsonFileSync(__dirname + '/data/list.json', 'utf-8');
 
@@ -36,12 +30,39 @@ app.get('/api/list', function(req, res){
     res.send(jsonData);
 });
 
-app.get('/api/item', function(req, res){
-    jsonData = readJsonFileSync(__dirname + '/data/item.json', 'utf-8');
+app.get('/api/list/:user_id', function(req, res){
+    jsonData = readJsonFileSync(__dirname + '/data/list.json', 'utf-8');
+
+    jsonData.forEach( function (userObj) {
+        if (userObj.user_id === Number(req.params.user_id)) {
+            res.contentType('application/json');
+            res.send(userObj);
+        }
+    });
+
+});
+
+app.get('/api/comments/:user_id', function(req, res){
+    jsonData = readJsonFileSync(__dirname + '/data/comments.json', 'utf-8');
+    comments = [];
+
+
+    jsonData.forEach( function (commentObj) {
+        if (commentObj.user_id === Number(req.params.user_id)) {
+            comments.push(commentObj);
+        }
+    });
+
+    res.contentType('application/json');
+    res.send(comments);
+});
+
+/*app.get('/', function(req, res){
+    jsonData = readJsonFileSync(__dirname + '/data/list.json', 'utf-8');
 
     res.contentType('application/json');
     res.send(jsonData);
-});
+});*/
 
 
 app.listen(1715);
