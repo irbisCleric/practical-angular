@@ -1,4 +1,4 @@
-<div class="list-block" ng-controller="UsersListCtrl">
+<div class="list-block">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -11,7 +11,7 @@
         <tbody>
         <tr ng-repeat="user in usersList">
             <td>
-                <a ng-href="#/list/{{user.user_id}}" class="btn btn-primary">{{user.user_id}}</a>
+                <a ui-sref="detail({itemId:user.user_id})" href="contacts/{{user.user_id}}" class="btn btn-primary">{{user.user_id}}</a>
             </td>
             <td>{{user.name}}</td>
             <td>{{user.description}}</td>
