@@ -8,6 +8,9 @@ var gulp = require('gulp'),
     rimraf = require('rimraf'),
     server = require('gulp-server-livereload');
 
+// Working build
+gulp.task('work', ['webserver']);
+
 // Default Task
 gulp.task('default', ['assets']);
 
