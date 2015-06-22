@@ -19,7 +19,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "update": "npm install && npm prune && bower install && bower prune",
+    "first-run": "npm install && bower install"
   },
   "description": "angular practice",
   "main": "index.js",
