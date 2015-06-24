@@ -8,8 +8,9 @@
  *
  * Main module of the application.
  */
-var mainApp = angular
-    .module('angularPracticeApp', [
+
+var angular = require('./../vendors/angular'),
+    mainApp = angular.module('angularPracticeApp', [
         'ui.router'
     ]);
 

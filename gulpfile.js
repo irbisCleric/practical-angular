@@ -14,8 +14,9 @@ var gulp = require('gulp'),
     exec = require('child_process').exec,
     del = require('del'), // rm -rf
     runSequence = require('run-sequence'),
-    webpack = require('webpack');
-
+    webpack = require('webpack'),
+    buildPath = __dirname + '/app/build',// TODO: Move to level up
+    srcPath = __dirname + '/app';
 
 // Work build
 gulp.task('develop', ['assets', 'watch', 'webserver', 'server']);
@@ -30,24 +31,26 @@ gulp.task('assets', ['clean-build'], function (cb) {
 
 // Clean build directory before each build
 gulp.task('clean-build', function () {
-    del(['./app/build/**/*.*'], function (err, paths) {
+    del([buildPath + '/**/*.*'], function (err, paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
     });
 });
 
+// Copy static resources to build folder
 gulp.task('static', function () {
-    var fonts = gulp.src('./app/vendors/bootstrap-sass/assets/fonts/**/*')
-        .pipe(gulp.dest('./app/build/fonts/'));
+    // TODO: Find how to copy fonts without bootstrap folder
+    gulp.src(srcPath + '/vendors/bootstrap-sass/assets/fonts/**/*.{eot,svg,ttf,woff,woff2}')
+        .pipe(gulp.dest(buildPath + '/fonts'));
 });
 
 gulp.task('sass', function () {
-    gulp.src('./app/styles/index.scss')
+    gulp.src(srcPath + '/styles/index.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(minifycss())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./app/build/styles'));
+        .pipe(gulp.dest(buildPath + '/styles'));
 });
 
 gulp.task('server', function (cb) {
@@ -59,7 +62,7 @@ gulp.task('server', function (cb) {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./app/styles/**/*.scss', ['sass']); // Watch .scss files
+    gulp.watch(srcPath + '/styles/**/*.scss', ['sass']); // Watch .scss files
 });
 
 gulp.task('webserver', function() {
