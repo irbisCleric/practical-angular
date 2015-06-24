@@ -15,7 +15,10 @@
     "gulp-sass": "^2.0.1",
     "gulp-server-livereload": "^1.4.0",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-watch": "^4.2.4"
+    "gulp-watch": "^4.2.4",
+    "node-libs-browser": "^0.5.2",
+    "run-sequence": "^1.1.1",
+    "webpack": "^1.9.11"
   },
   "engines": {
     "node": ">=0.10.0"

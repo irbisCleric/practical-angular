@@ -12,7 +12,9 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     hostserver = require('gulp-server-livereload'),
     exec = require('child_process').exec,
-    del = require('del'); // rm -rf
+    del = require('del'), // rm -rf
+    runSequence = require('run-sequence'),
+    webpack = require('webpack');
 
 
 // Work build
@@ -22,11 +24,12 @@ gulp.task('develop', ['assets', 'watch', 'webserver', 'server']);
 gulp.task('prod', ['assets', 'webserver', 'server']);
 
 // CSS and static resources build
-gulp.task('assets', ['clean-build', 'static', 'sass']);
+gulp.task('assets', ['clean-build'], function (cb) {
+    runSequence('static', ['sass'], cb);
+});
 
 // Clean build directory before each build
 gulp.task('clean-build', function () {
-    //del(['./app/build/'], {force: true}, function (err, paths) { // remove directory
     del(['./app/build/**/*.*'], function (err, paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
     });
