@@ -1,27 +1,38 @@
 /**
  * Created by skok on 27/05/15.
  */
+
+'use strict';
+
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
+    minifycss = require('gulp-minify-css'),
     autoprefixer = require('gulp-autoprefixer'),
-    rimraf = require('rimraf'),
-    server = require('gulp-server-livereload');
+    watch = require('gulp-watch'),
+    hostserver = require('gulp-server-livereload'),
+    exec = require('child_process').exec,
+    del = require('del'), // rm -rf
+    runSequence = require('run-sequence'),
+    webpack = require('webpack');
 
-// Working build
-gulp.task('work', ['webserver']);
 
-// Default Task
-gulp.task('default', ['assets']);
+// Work build
+gulp.task('develop', ['assets', 'watch', 'webserver', 'server']);
 
-gulp.task('assets', ['clean-build'], function () {
-    gulp.start('static'); // TODO: why start unresolved function?
-    gulp.start('sass');
+// Production build
+gulp.task('prod', ['assets', 'webserver', 'server']);
+
+// CSS and static resources build
+gulp.task('assets', ['clean-build'], function (cb) {
+    runSequence('static', ['sass'], cb);
 });
 
 // Clean build directory before each build
-gulp.task('clean-build', function (cb) {
-    rimraf('./app/build', cb);
+gulp.task('clean-build', function () {
+    del(['./app/build/**/*.*'], function (err, paths) {
+        console.log('Deleted files/folders:\n', paths.join('\n'));
+    });
 });
 
 gulp.task('static', function () {
@@ -34,13 +45,26 @@ gulp.task('sass', function () {
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(minifycss())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./app/build/styles'));
 });
 
+gulp.task('server', function (cb) {
+    exec('node server/server.js', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+});
+
+gulp.task('watch', function () {
+    gulp.watch('./app/styles/**/*.scss', ['sass']); // Watch .scss files
+});
+
 gulp.task('webserver', function() {
     gulp.src('app')
-        .pipe(server({
+        .pipe(hostserver({
             livereload: true,
             directoryListing: false,
             open: true

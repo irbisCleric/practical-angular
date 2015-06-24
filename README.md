@@ -3,5 +3,7 @@
 $ npm run first-run
 ## For updating:
 $ npm run update
-## For running api server:
-$ node server/app.js
+## For application (dev version)
+$ gulp develop
+## For application (dev version)
+$ gulp prod
