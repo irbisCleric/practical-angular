@@ -9,9 +9,13 @@
  * Main module of the application.
  */
 
-var angular = require('./../vendors/angular'),
-    mainApp = angular.module('angularPracticeApp', [
-        'ui.router'
+"use strict";
+
+var angular = require('angular'),
+    uiRouter = require('angular-ui-router');
+
+var mainApp = angular.module('angularPracticeApp', [
+        uiRouter
     ]);
 
 mainApp.config(function ($stateProvider, $urlRouterProvider) {

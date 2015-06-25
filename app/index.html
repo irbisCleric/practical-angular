@@ -38,15 +38,8 @@
     <![endif]-->
     <!-- endbuild -->
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="vendors/angular/angular.min.js"></script>
-    <script src="vendors/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <!-- endbower -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="build/bundle.js"></script>
     <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="build/bundle.js"></script>
-        <!-- endbuild -->
 </body>
 </html>
