@@ -14,9 +14,12 @@ var gulp = require('gulp'),
     exec = require('child_process').exec,
     del = require('del'), // rm -rf
     runSequence = require('run-sequence'),
-    webpack = require('webpack'),
-    buildPath = __dirname + '/app/build',// TODO: Move to level up
-    srcPath = __dirname + '/app';
+    webpack = require('webpack');
+
+// folder path
+var srcPath = __dirname + '/app',
+    buildPath = __dirname + '/app/build', // TODO: Move to level up;
+    webpackConfig = require("./webpack.config.js");
 
 // Work build
 gulp.task('develop', ['assets', 'watch', 'webserver', 'server']);
@@ -26,7 +29,7 @@ gulp.task('prod', ['assets', 'webserver', 'server']);
 
 // CSS and static resources build
 gulp.task('assets', ['clean-build'], function (cb) {
-    runSequence('static', ['sass'], cb);
+    runSequence('static', ['sass', 'webpack:build'], cb);
 });
 
 // Clean build directory before each build
@@ -34,6 +37,11 @@ gulp.task('clean-build', function () {
     del([buildPath + '/**/*.*'], function (err, paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
     });
+});
+
+gulp.task('webpack:build', function (cb) {
+    var myConfig = Object.create(webpackConfig);
+    webpack(myConfig, function (err, stats) { cb(); });
 });
 
 // Copy static resources to build folder
@@ -63,6 +71,7 @@ gulp.task('server', function (cb) {
 
 gulp.task('watch', function () {
     gulp.watch(srcPath + '/styles/**/*.scss', ['sass']); // Watch .scss files
+    gulp.watch(srcPath + '/scripts/**/*.js', ['webpack:build']); // Watch .scss files
 });
 
 gulp.task('webserver', function() {

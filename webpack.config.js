@@ -2,20 +2,22 @@
  * Created by irbis on 24.06.15.
  */
 
-var bowerFolder = __dirname + '/app/vendors/',
-    outputPath = __dirname + '/app/build/',
-    srcPath = __dirname + '/app/scripts/';
+var PATHS = {
+    bower: __dirname + '/app/vendors/',
+    build: __dirname + '/app/build/',
+    src: __dirname + '/app/scripts/'
+};
 
 module.exports = {
-    context: srcPath,
+    context: PATHS.src,
     entry: './app.js',
     output: {
-        path: outputPath,
+        path: PATHS.build,
         filename: 'bundle.js'
     },
     resolve: {
         modulesDirectories: [
-            bowerFolder,
+            PATHS.bower,
             'node_modules'
         ]
     }

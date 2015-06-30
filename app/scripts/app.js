@@ -11,12 +11,12 @@
 
 "use strict";
 
-var angular = require('angular'),
-    uiRouter = require('angular-ui-router');
+require('./vendors')();
 
 var mainApp = angular.module('angularPracticeApp', [
-        uiRouter
-    ]);
+        'ui.router',
+        'ngResource'
+]);
 
 mainApp.config(function ($stateProvider, $urlRouterProvider) {
 
