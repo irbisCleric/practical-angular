@@ -15,6 +15,11 @@ module.exports = {
         path: PATHS.build,
         filename: 'bundle.js'
     },
+    module: {
+        loaders: [
+            { test: /\.html$/, loader: 'raw-loader' }
+        ]
+    },
     resolve: {
         modulesDirectories: [
             PATHS.bower,
