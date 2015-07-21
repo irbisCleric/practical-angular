@@ -2,10 +2,10 @@
  * Created by skok on 20/07/15.
  */
 module.exports = function (mainApp) {
-    mainApp.controller('UsersListCtrl', ['$scope', '$http', 'UserListService',
-        function ($scope, $http, UserListService) {
+    mainApp.controller('UsersListCtrl', ['$scope', '$http', 'UserListFactory',
+        function ($scope, $http, UserListFactory) {
 
-            UserListService.getUsers();
+            UserListFactory.get();
             //var url = 'http://localhost:1715/api/list';
 
             /*$http.get(url).
