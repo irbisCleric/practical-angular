@@ -3,4 +3,5 @@
  */
 module.exports = function (mainApp) {
     require('./controller')(mainApp);
+    require('./service')(mainApp);
 };

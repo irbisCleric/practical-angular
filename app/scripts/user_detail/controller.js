@@ -2,30 +2,36 @@
  * Created by skok on 20/07/15.
  */
 module.exports = function (mainApp) {
-    mainApp.controller('SingleUserCtrl', ['$scope', '$http', '$stateParams',
-        function ($scope, $http, $stateParams) {
-            var url = 'http://localhost:1715/api/list/' + $stateParams.itemId;
+    mainApp.controller('SingleUserCtrl', ['$scope', '$stateParams', 'UserDetailFactory',
+        function ($scope, $stateParams, UserDetailFactory) {
 
-            $http.get(url).
-                success(function (data, status, headers, config) {
-                    $scope.user = data;
-                }).
-                error(function (data, status, headers, config) {
-                    console.log(status);
+            UserDetailFactory
+                .get({
+                    userId: $stateParams.itemId
+                })
+                .$promise
+                .then(function (resp) {
+                    $scope.user = resp;
+                })
+                .catch(function(resp) {
+                    console.error('Gists error', resp.status, resp.data);
                 });
         }
     ]);
 
-    mainApp.controller('CommentsListCtrl', ['$scope', '$http', '$stateParams',
-        function ($scope, $http, $stateParams) {
-            var url = 'http://localhost:1715/api/comments/' + $stateParams.itemId;
+    mainApp.controller('CommentsListCtrl', ['$scope', '$stateParams', 'UserCommentsFactory',
+        function ($scope, $stateParams, UserCommentsFactory) {
 
-            $http.get(url).
-                success(function (data, status, headers, config) {
-                    $scope.commentsList = data;
-                }).
-                error(function (data, status, headers, config) {
-                    console.log(status);
+            UserCommentsFactory
+                .query({
+                    userId: $stateParams.itemId
+                })
+                .$promise
+                .then(function (resp) {
+                    $scope.commentsList = resp;
+                })
+                .catch(function(resp) {
+                    console.error('Gists error', resp.status, resp.data);
                 });
         }
     ]);

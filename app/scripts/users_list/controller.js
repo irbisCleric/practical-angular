@@ -5,16 +5,15 @@ module.exports = function (mainApp) {
     mainApp.controller('UsersListCtrl', ['$scope', '$http', 'UserListFactory',
         function ($scope, $http, UserListFactory) {
 
-            UserListFactory.get();
-            //var url = 'http://localhost:1715/api/list';
-
-            /*$http.get(url).
-                success(function (data, status, headers, config) {
+            UserListFactory
+                .query()
+                .$promise
+                .then(function (data) {
                     $scope.usersList = data;
-                }).
-                error(function (data, status, headers, config) {
-                    console.log(status);
-                });*/
+                })
+                .catch(function(response) {
+                    console.error('Gists error', response.status, response.data);
+                });
         }
     ]);
 };
