@@ -1,6 +1,6 @@
 module.exports = function (mainApp) {
-    mainApp.factory('UserListFactory', ['$scope', '$http',
-        function ($scope, $resource) {
+    mainApp.factory('UserListFactory', ['$http',
+        function ($resource) {
             //var resource = $resource('http://localhost:1715/api/list');
 
             return $resource('http://localhost:1715/api/list', {
