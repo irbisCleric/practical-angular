@@ -8,5 +8,14 @@
  *
  * Main module of the application.
  */
-angular
-  .module('practicalAngularApp', []);
+var mainModule = angular.module('practicalAngularApp', []);
+
+mainModule.service('SmithService', function () {
+  this.getName = function (name) {
+    return name + ' Smith';
+  }
+});
+
+mainModule.controller('AppCtrl', function () {
+  this.message = 'Hello';
+});
